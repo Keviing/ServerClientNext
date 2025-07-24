@@ -1,9 +1,16 @@
+import { CartCounter } from "@/app/shopping-cart"
 
-export default function CounterPage(){
-    return(
+export const metadata = {
+    title: 'Counter Page',
+    description: 'Este es un simple contador'
+}
 
-        <>
-        <div>Hola counter</div>
-        </>
+export default function CounterPage() {
+
+    return (
+        <div className="flex flex-col items-center justify-center w-full h-full">
+            <span className="">Productos en el carrito</span>
+            <CartCounter value={10} /> 
+        </div>
     )
 }
