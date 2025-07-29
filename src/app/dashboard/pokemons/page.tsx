@@ -12,6 +12,7 @@ const getPokemons = async (limit = 20, offset = 0): Promise<SimplePokemons[]> =>
     name: pokemon.name
   }));
 
+  // throw new Error('Error de prueba');
   return pokemons;
 
 
@@ -22,6 +23,7 @@ export default async function page() {
   const pokemons = await getPokemons(151);
   return (
     <div className="flex flex-col">
+      <span className="text-5xl my-2">Listado Pokemons <small>Estatico</small></span>
         <PokemonGrid pokemons={pokemons} />
     </div>
   )
