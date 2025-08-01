@@ -1,6 +1,7 @@
 import { Pokemon } from "@/pokemons";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 interface Props {
     params:{id:string}
@@ -16,6 +17,7 @@ export async function generateMetadata({params}:Props): Promise<Metadata> {
 }
 
 const getPokemon = async (id:string) :Promise<Pokemon> => {
+  try {
     const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`,{
         cache: 'force-cache'
     })
@@ -23,6 +25,10 @@ const getPokemon = async (id:string) :Promise<Pokemon> => {
 
     console.log(pokemon);
     return pokemon;
+    
+  } catch (error) {
+    notFound();
+  }
 }
 
 
@@ -39,13 +45,16 @@ export default async function PokemonPage({ params }: Props) {
             #{pokemon.id} {pokemon.name}
           </h1>
           <div className="flex flex-col justify-center items-center">
-            <Image
-              src={pokemon.sprites.other?.dream_world.front_default ?? ''}
-              width={150}
-              height={150}
-              alt={`Imagen del pokemon ${pokemon.name}`}
-              className="mb-5"
-            />
+            <div className="relative group">
+              <Image
+                src={pokemon.sprites.other?.dream_world.front_default ?? ''}
+                width={150}
+                height={150}
+                alt={`Imagen del pokemon ${pokemon.name}`}
+                className="mb-5 transition-all duration-300 cursor-pointer z-10 relative hover:scale-[2] hover:z-50"
+              />
+              <div className="fixed inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            </div>
 
 
             <div className="flex flex-wrap">
@@ -120,9 +129,6 @@ export default async function PokemonPage({ params }: Props) {
 
             </div>
           </div>
-
-
-
         </div>
       </div>
     </div>
