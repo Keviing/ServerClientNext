@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { SimplePokemons } from "../interfaces/simple-pokemons";
 import Image from "next/image";
-import { IoHeartCircle, IoHeartOutline } from "react-icons/io5";
+import { IoHeartOutline } from "react-icons/io5";
+import { PokemonsResponse } from "../interfaces/pokemons-response";
 
 interface Props {
   pokemon: SimplePokemons;
 }
+
+
+
 
 export default function PokemonCard({pokemon}: Props) {
   const {id, name} = pokemon;
@@ -26,7 +30,7 @@ export default function PokemonCard({pokemon}: Props) {
           <p className="pt-2 text-lg font-semibold text-gray-50 capitalize">{name}</p>
           <div className="mt-5">
             <Link
-            href={`pokemon/${id}`}
+            href={`pokemons/${name}`}
               className="border rounded-full py-2 px-4 text-xs font-semibold text-gray-100"
             >
               saber más
